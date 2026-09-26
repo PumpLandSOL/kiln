@@ -6,7 +6,7 @@ const usd = (n) => n == null ? '—' : n === 0 ? 'Free' : n < 0.01 ? '$' + n.toF
 const ago = (ts) => { const s = Math.max(0, (Date.now() - ts) / 1000); return s < 60 ? Math.floor(s) + 's' : s < 3600 ? Math.floor(s / 60) + 'm' : Math.floor(s / 3600) + 'h'; };
 function toast(m, err) { const t = $('toast'); t.textContent = m; t.className = 'toast on' + (err ? ' err' : ''); clearTimeout(toast._t); toast._t = setTimeout(() => t.className = 'toast', 2800); }
 
-let S = null, A = null, mode = 'bittensor', history = [], busy = false;
+let S = null, A = null, mode = 'bittensor', convo = [], busy = false;
 let wallet = localStorage.getItem('kiln_w') || '';
 let chutesKey = localStorage.getItem('kiln_ck') || '';
 const CHAIN_HEX = '0x1237'; const evm = () => window.ethereum || null;
@@ -62,16 +62,16 @@ function addMsg(cls, text) { const d = document.createElement('div'); d.classNam
 function addReceipt(r) { const d = document.createElement('div'); d.className = 'rc'; d.innerHTML = `<b>${r.model}</b> on ${r.ranOn}. ${r.tokens} tokens at ${r.tps.toFixed(0)} tokens/s. <b>${r.usd == null ? 'Free' : usd(r.usd)}</b>${r.billed ? ', ' + r.billed : ''}${r.lenderUsd != null ? ' · lender keeps ' + usd(r.lenderUsd) : ''}${r.note ? ' · ' + r.note : ''}`; $('msgs').appendChild(d); $('msgs').scrollTop = 1e9; }
 function heat(el, tok) { const s = document.createElement('span'); s.className = 'w hot'; s.textContent = tok; el.appendChild(s); requestAnimationFrame(() => setTimeout(() => s.classList.remove('hot'), 40)); $('msgs').scrollTop = 1e9; }
 async function ask() {
-  const q = $('q').value.trim(); if (!q || busy) return; $('q').value = ''; busy = true; addMsg('u', q); history.push({ role: 'user', content: q }); const a = addMsg('a', ''); let out = '';
+  const q = $('q').value.trim(); if (!q || busy) return; $('q').value = ''; busy = true; addMsg('u', q); convo.push({ role: 'user', content: q }); const a = addMsg('a', ''); let out = '';
   try {
     if (mode === 'private') {
       $('load').style.display = ''; const eng = await getEngine($('model').value, (p) => { $('load-t').textContent = p.text; $('load-b').style.width = Math.round((p.progress || 0) * 100) + '%'; }); $('load').style.display = 'none';
-      const t0 = Date.now(); let first = 0, n = 0; const st = await eng.chat.completions.create({ messages: history.slice(-12), stream: true, max_tokens: 400, temperature: 0.7 });
+      const t0 = Date.now(); let first = 0, n = 0; const st = await eng.chat.completions.create({ messages: convo.slice(-12), stream: true, max_tokens: 400, temperature: 0.7 });
       for await (const ch of st) { const t = ch.choices[0].delta.content || ''; if (t) { if (!first) first = Date.now(); out += t; n++; heat(a, t); } }
       const name = PRIV.find((p) => p.id === $('model').value).name; addReceipt({ model: name, ranOn: 'your GPU' + (gpuName ? ' (' + gpuName + ')' : '') + ', in private mode', tokens: n, tps: n / Math.max(0.2, (Date.now() - first) / 1000), usd: null, note: 'Nothing left this tab.' });
     } else {
       const url = mode === 'bittensor' ? '/api/chat/bittensor' : '/api/chat/network';
-      const body = mode === 'bittensor' ? { wallet: wallet || undefined, key: chutesKey || undefined, model: $('model').value, messages: history.slice(-16) } : { wallet, lender: $('model').value, messages: history.slice(-16) };
+      const body = mode === 'bittensor' ? { wallet: wallet || undefined, key: chutesKey || undefined, model: $('model').value, messages: convo.slice(-16) } : { wallet, lender: $('model').value, messages: convo.slice(-16) };
       if (mode === 'network' && needWallet()) throw new Error('connect a wallet for the network');
       if (mode === 'bittensor' && !chutesKey && !wallet) { connect(); throw new Error('connect a wallet for credits, or save a Chutes key on the Credits page'); }
       const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
@@ -79,8 +79,8 @@ async function ask() {
       const rd = r.body.getReader(); const dec = new TextDecoder(); let buf = '';
       while (true) { const { value, done } = await rd.read(); if (done) break; buf += dec.decode(value, { stream: true }); let i; while ((i = buf.indexOf('\n\n')) >= 0) { const blk = buf.slice(0, i); buf = buf.slice(i + 2); const ev = /event: (\w+)/.exec(blk), dt = /data: (.*)/.exec(blk); if (!ev || !dt) continue; const d = JSON.parse(dt[1]); if (ev[1] === 'tok') { out += d.t; heat(a, d.t); } else if (ev[1] === 'receipt') { addReceipt(d); if (d.creditsLeft != null && A) { A.credits = d.creditsLeft; renderAccount(); } } else if (ev[1] === 'error') throw new Error(d.error); } }
     }
-    history.push({ role: 'assistant', content: out });
-  } catch (e) { if (!out) a.remove(); const s = document.createElement('div'); s.className = 'sys'; s.textContent = e.message || String(e); $('msgs').appendChild(s); history.pop(); $('load').style.display = 'none'; }
+    convo.push({ role: 'assistant', content: out });
+  } catch (e) { if (!out) a.remove(); const s = document.createElement('div'); s.className = 'sys'; s.textContent = e.message || String(e); $('msgs').appendChild(s); convo.pop(); $('load').style.display = 'none'; }
   busy = false;
 }
 $('send').onclick = ask; $('q').addEventListener('keydown', (e) => { if (e.key === 'Enter') ask(); });
