@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f3ede3;color:#1f1b18;font-family:'Manrope',sans-serif;overflow:hidden;position:relative}
+.grain{position:absolute;inset:0;opacity:.5;background:radial-gradient(60% 50% at 20% 10%,#fbf8f2,transparent 70%),radial-gradient(50% 40% at 90% 90%,#eae2d5,transparent 70%)}
+.glow{position:absolute;width:1400px;height:1400px;border-radius:50%;background:radial-gradient(circle,#f2a24a55,#c2542d22 40%,transparent 70%);filter:blur(60px)}
+.f{font-family:'Fraunces';font-weight:700;letter-spacing:-.02em;line-height:1.02}
+.fi{font-family:'Fraunces';font-style:italic;font-weight:500}
+.mono{font-family:'JetBrains Mono';letter-spacing:.24em;text-transform:uppercase}
+.terra{color:#c2542d}.ember{color:#f2a24a}.ash{color:#5f574f}.dust{color:#948a7c}
+.kiln{display:inline-block;border-radius:22% 22% 8% 8%;background:linear-gradient(180deg,#e0703f,#c2542d);box-shadow:inset 0 -.22em 0 #8f3a1c;position:relative}
+.kiln::after{content:"";position:absolute;left:26%;right:26%;top:30%;height:14%;border-radius:999px;background:#f2a24a;box-shadow:0 0 .6em #f2a24a}
+.card{background:#fbf8f2;border:2px solid #d8cfbf;border-radius:28px;box-shadow:0 30px 80px #1f1b1814}
+.abs{position:absolute}
