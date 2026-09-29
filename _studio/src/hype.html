@@ -1,0 +1,28 @@
+<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="_base.css">
+<style>body{width:1280px;height:720px}.c{position:absolute;inset:0;display:grid;place-items:center;text-align:center;opacity:0}
+.h{font-family:'Fraunces';font-weight:700;font-size:78px;line-height:1.02;letter-spacing:-.02em}
+.sub{font-family:'JetBrains Mono';font-size:17px;letter-spacing:.24em;text-transform:uppercase;color:#948a7c;margin-top:22px}
+#term{width:820px;background:#1f1b18;color:#f3ede3;border-radius:22px;padding:34px 40px;text-align:left;font-family:'JetBrains Mono';font-size:22px;line-height:1.9;box-shadow:0 40px 90px #1f1b1833}
+#bar{position:absolute;left:0;bottom:0;height:8px;background:linear-gradient(90deg,#c2542d,#f2a24a)}
+.pill{display:inline-block;padding:12px 26px;border:2px solid #d8cfbf;border-radius:999px;font-family:'Fraunces';font-weight:700;font-size:22px;background:#fbf8f2}
+</style><body><div class="grain"></div><div class="glow" id="g" style="right:-500px;top:-500px"></div>
+<div class="c" id="s1"><div><div class="h">Every prompt you send<br><span class="fi terra">someone can read.</span></div></div></div>
+<div class="c" id="s2"><div><div class="h">Seal it. Lend it.<br><span class="fi terra">Or never send it.</span></div></div></div>
+<div class="c" id="s3"><div id="term"><div class="dust">&gt; private mode · webgpu</div><div class="dust">&gt; network: <span class="ember">offline</span></div><div>&gt; <span id="q"></span></div><div class="terra" id="a"></div></div></div>
+<div class="c" id="s4"><div><div class="h" style="font-size:66px">Sealed models.<br>Lent GPUs.<br>Private mode.<br><span class="fi terra">Sealed messages.</span></div></div></div>
+<div class="c" id="s5"><div><div style="display:flex;align-items:center;justify-content:center;gap:22px"><span class="kiln" style="width:84px;height:84px"></span><span class="h" style="font-size:80px">KILN</span></div><div class="sub">private compute, fired in a sealed oven</div><div style="margin-top:32px"><span class="pill" id="dom">@kilnai · $KILN</span></div></div></div>
+<div id="bar"></div>
+<script>
+const $=(i)=>document.getElementById(i),cl=(x)=>Math.max(0,Math.min(1,x)),e=(x)=>1-Math.pow(1-cl(x),3),win=(t,a,b,f=.2)=>cl((t-a)/f)*cl((b-t)/f);
+const p=new URLSearchParams(location.search);if(p.get('dom'))$('dom').textContent=p.get('dom');
+const Q='what is a kiln?',A='a sealed oven. nothing gets out until it is done.';
+window.__seek=(t)=>{
+  $('g').style.transform=`translate(${-t*20}px,${t*14}px)`;
+  $('s1').style.opacity=win(t,0,1.9);$('s1').firstElementChild.style.transform=`translateY(${(1-e(t/.6))*30}px)`;
+  $('s2').style.opacity=win(t,1.8,3.6);$('s2').firstElementChild.style.transform=`scale(${.94+e((t-1.8)/.7)*.06})`;
+  $('s3').style.opacity=win(t,3.5,6.6);const q=cl((t-3.8)/.9),a=cl((t-4.9)/1.4);$('q').textContent=Q.slice(0,Math.round(q*Q.length))+(q<1?'▌':'');$('a').textContent=A.slice(0,Math.round(a*A.length));
+  $('s4').style.opacity=win(t,6.5,8.4);$('s4').firstElementChild.style.transform=`translateY(${(1-e((t-6.5)/.6))*30}px)`;
+  $('s5').style.opacity=e((t-8.3)/.5);$('s5').firstElementChild.style.transform=`scale(${.9+e((t-8.3)/.8)*.1})`;
+  $('bar').style.width=(t/10*1280)+'px';
+};window.__seek(0);
+</script>
