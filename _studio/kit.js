@@ -1,6 +1,6 @@
 // writes the KILN brand-kit scenes into _studio/src (then: node _studio/render.js)
 const fs = require('fs'), path = require('path'); const S = path.join(__dirname, 'src');
-const X = process.env.X_HANDLE || '@kilnai', DOMAIN = process.env.DOMAIN || '';
+const X = process.env.X_HANDLE || '@KlinOnRH', DOMAIN = process.env.DOMAIN || '';
 const mark = (px) => `<span class="kiln" style="width:${px}px;height:${px}px"></span>`;
 const foot = `<div class="abs mono" style="left:130px;right:130px;bottom:80px;display:flex;justify-content:space-between;align-items:center;font-size:26px;color:#948a7c"><span style="display:flex;align-items:center;gap:22px;color:#1f1b18;font-family:'Fraunces';font-weight:700;font-size:32px;letter-spacing:.04em;text-transform:none">${mark(44)}KILN</span><span>${DOMAIN ? DOMAIN + ' · ' : ''}${X} · $KILN</span></div>`;
 const page = (body, css = '') => `<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><style>body{width:2400px;height:1350px}.pad{position:absolute;inset:110px 130px}.kick{font-family:'JetBrains Mono';font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:#948a7c}${css}</style><body><div class="grain"></div><div class="glow" style="right:-300px;top:-300px"></div>${body}${foot}`;

@@ -1,6 +1,6 @@
 # KILN · X kit
 
-**Handle:** @kilnai (placeholder) · **Repo:** github.com/PumpLandSOL/kiln · **Chain:** Robinhood Chain (credits in USDG)
+**Handle:** @KlinOnRH (placeholder) · **Repo:** github.com/PumpLandSOL/kiln · **Chain:** Robinhood Chain (credits in USDG)
 
 **Name:** KILN
 **Bio:** Private compute, fired in a sealed oven. Sealed models, GPUs lent by strangers, a model that never leaves your browser, and messages only the other person can open. $KILN
