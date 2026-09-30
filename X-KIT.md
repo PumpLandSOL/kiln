@@ -1,36 +1,36 @@
-# KILN · X kit
+# KLIN · X kit
 
 **Handle:** @KlinOnRH (placeholder) · **Repo:** github.com/PumpLandSOL/kiln · **Chain:** Robinhood Chain (credits in USDG)
 
-**Name:** KILN
-**Bio:** Private compute, fired in a sealed oven. Sealed models, GPUs lent by strangers, a model that never leaves your browser, and messages only the other person can open. $KILN
-**PFP:** `brand/kiln-pfp.png` · **Banner:** `brand/kiln-banner.png`
+**Name:** KLIN
+**Bio:** Private compute, fired in a sealed oven. Sealed models, GPUs lent by strangers, a model that never leaves your browser, and messages only the other person can open. $KLIN
+**PFP:** `brand/klin-pfp.png` · **Banner:** `brand/klin-banner.png`
 
 ## Assets
 | file | use |
 |---|---|
-| `brand/kiln-keyart.png` | tweet 1 (launch, pin) |
-| `brand/kiln-rooms.png` | tweet 2 |
-| `brand/kiln-lend.png` | tweet 3 |
-| `brand/kiln-private.png` | tweet 4 |
-| `brand/kiln-sealed.png` | tweet 5 |
+| `brand/klin-keyart.png` | tweet 1 (launch, pin) |
+| `brand/klin-rooms.png` | tweet 2 |
+| `brand/klin-lend.png` | tweet 3 |
+| `brand/klin-private.png` | tweet 4 |
+| `brand/klin-sealed.png` | tweet 5 |
 
 Regenerate: `X_HANDLE=@handle DOMAIN=yourdomain node _studio/kit.js && node _studio/render.js`.
 
 ## 5 launch tweets (all ≤245)
 
-**1 · Launch (pin)** · `kiln-keyart.png`
+**1 · Launch (pin)** · `klin-keyart.png`
 ```
 Ask anything. Nobody reads it.
 
-KILN is private compute, every layer:
+KLIN is private compute, every layer:
 
 sealed models · GPUs lent by strangers · a model that never leaves your browser · messages only the other person can open
 
-Fired in a sealed oven. $KILN
+Fired in a sealed oven. $KLIN
 ```
 
-**2 · Four rooms** · `kiln-rooms.png`
+**2 · Four rooms** · `klin-rooms.png`
 ```
 Four rooms. One oven.
 
@@ -39,19 +39,19 @@ Four rooms. One oven.
 03 Private mode: WebGPU, no server, no log, no network
 04 Sealed messages: X25519 + AES-GCM, relay sees bytes
 
-$KILN
+$KLIN
 ```
 
-**3 · Lend your GPU** · `kiln-lend.png`
+**3 · Lend your GPU** · `klin-lend.png`
 ```
 Your GPU is idle. Someone is asking.
 
 Plug your browser in as a lender. Askers pay $0.01 per 1,000 tokens in credits. You keep 70%, paid on every answer, browser to browser over one socket.
 
-$KILN
+$KLIN
 ```
 
-**4 · Private mode** · `kiln-private.png`
+**4 · Private mode** · `klin-private.png`
 ```
 No server. No log. No network.
 
@@ -59,16 +59,16 @@ Private mode loads a model into your browser over WebGPU once, then the door shu
 
 The only AI chat where "private" means your own GPU.
 
-$KILN
+$KLIN
 ```
 
-**5 · Sealed messages** · `kiln-sealed.png`
+**5 · Sealed messages** · `klin-sealed.png`
 ```
 The relay carries it. It cannot read it.
 
 Keys are made in your browser and never leave. Every message is padded, encrypted to the other person's key, and handed over as bytes. Offline? It waits in a mailbox only they can open.
 
-$KILN
+$KLIN
 ```
 
 **Reply under 1**

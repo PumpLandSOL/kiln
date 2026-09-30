@@ -1,4 +1,4 @@
-// KILN E2E (dev server, DEV_FAUCET=1, fresh DATA_PATH). Uses Node's built-in WebSocket client as a fake lender and two relay peers.
+// KLIN E2E (dev server, DEV_FAUCET=1, fresh DATA_PATH). Uses Node's built-in WebSocket client as a fake lender and two relay peers.
 const B = 'http://localhost:' + (process.env.PORT || 8226), WS = B.replace('http', 'ws');
 const A = '0x00000000000000000000000000000000000000a1', L = '0x00000000000000000000000000000000000000b2';
 const post = (u, w, b) => fetch(B + u, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ wallet: w, ...b }) }).then((r) => r.json());

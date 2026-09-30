@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KILN — private compute, fired in a sealed oven</title>
+<title>KLIN — private compute, fired in a sealed oven</title>
 <meta name="description" content="Run open models on Bittensor subnet 64 inside sealed hardware, on a GPU someone lends from their browser, or on your own GPU with nothing leaving the tab. Mine with your GPU. Send sealed messages. Pay per token on Robinhood Chain.">
-<meta property="og:url" content="https://kilnai.xyz/"><link rel="canonical" href="https://kilnai.xyz/"><meta property="og:title" content="KILN — private compute, fired in a sealed oven"><meta property="og:description" content="Sealed models on Bittensor, lent GPUs, or your own. Pay per token on Robinhood Chain. Private mode is free."><meta property="og:image" content="https://kilnai.xyz/brand/kiln-banner.png"><meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://klinai.xyz/"><link rel="canonical" href="https://klinai.xyz/"><meta property="og:title" content="KLIN — private compute, fired in a sealed oven"><meta property="og:description" content="Sealed models on Bittensor, lent GPUs, or your own. Pay per token on Robinhood Chain. Private mode is free."><meta property="og:image" content="https://klinai.xyz/brand/klin-banner.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -129,7 +129,7 @@ footer{margin-top:50px;border-top:1.5px solid var(--char);padding-top:16px;font-
 </head>
 <body>
 <header><div class="hin">
-  <div class="logo"><i></i>KILN</div>
+  <div class="logo"><i></i>KLIN</div>
   <nav class="tabs"><button data-view="home" class="on">Chat</button><button data-view="lend">Mine</button><button data-view="network">Network</button><button data-view="messages">Messages</button><button data-view="credits">Credits</button></nav>
   <div class="hr"><span class="live" id="live">…</span><a id="xbtn" href="https://x.com/KlinOnRH" target="_blank" rel="noopener">@KlinOnRH</a><button class="btn sm" id="connect">Connect wallet</button></div>
 </div></header>
@@ -169,24 +169,24 @@ footer{margin-top:50px;border-top:1.5px solid var(--char);padding-top:16px;font-
       <tr><td>Your words</td><td>Chutes' gateway in memory, and this server in passing when you pay with credits. Miners can't read them.</td><td>Only you.</td><td>You and the lender whose GPU serves the request.</td><td>You and the recipient.</td></tr>
       <tr><td>Your wallet</td><td>No one with your own key; this server when you pay with credits.</td><td>No one. No wallet needed.</td><td>This server, to bill credits. Lenders never see it.</td><td>The recipient, and the relay that routes the box.</td></tr>
       <tr><td>Who and when</td><td>Chutes sees request time and size; so does this server with credits.</td><td>No one.</td><td>This server sees time and size to bill you.</td><td>The relay sees two keys and a time. Never content, never length.</td></tr>
-      <tr><td>Payments</td><td>Your Chutes account, or KILN credits.</td><td>Nothing to pay.</td><td>Credits; top-ups are public on Robinhood Chain like any transfer.</td><td>Free.</td></tr></table></div>
+      <tr><td>Payments</td><td>Your Chutes account, or KLIN credits.</td><td>Nothing to pay.</td><td>Credits; top-ups are public on Robinhood Chain like any transfer.</td><td>Free.</td></tr></table></div>
 
-    <div class="sec"><div class="lab">live from Robinhood Chain</div><h2>Every spike is a real block.</h2><p>KILN uses the chain for money only. Credits are bought with USDG; lenders are paid in USDG. Prompts and replies never go on-chain.</p></div>
+    <div class="sec"><div class="lab">live from Robinhood Chain</div><h2>Every spike is a real block.</h2><p>KLIN uses the chain for money only. Credits are bought with USDG; lenders are paid in USDG. Prompts and replies never go on-chain.</p></div>
     <div class="stats"><div class="stat"><div class="l">latest block</div><div class="n" id="ch-block">—</div></div><div class="stat"><div class="l">block time</div><div class="n" id="ch-ms">—</div></div><div class="stat"><div class="l">tx per second</div><div class="n" id="ch-tps">—</div></div><div class="stat"><div class="l">base fee</div><div class="n" id="ch-fee">—</div></div><div class="stat"><div class="l">answers served</div><div class="n" id="st-ans">—</div></div></div>
     <div class="card" style="margin-top:10px"><div class="lab">last 24 blocks · newest on the right · taller and hotter carried more transactions</div><div class="blocks" id="blocks"></div></div>
 
     <div class="sec"><div class="lab">answers</div><h2>Questions people ask.</h2></div>
     <div class="faq">
-      <details open><summary>What is Bittensor, and how does KILN use it?</summary><div class="a">Bittensor is a decentralized network where miners compete to serve AI and are paid in TAO. KILN uses <b>subnet 64</b>, run by Chutes. Every model listed there runs inside confidential-compute hardware (Intel TDX), a sealed enclave the miner can't look into. KILN reads the live model list and prices straight from Chutes and streams answers through its gateway.</div></details>
-      <details><summary>Two ways to pay on Bittensor</summary><div class="a"><b>Your own Chutes key.</b> Paste a key from chutes.ai and answers bill your Chutes account, which takes TAO too. The key stays in your browser and goes only to Chutes through this server in passing. <b>KILN credits.</b> Send USDG on Robinhood Chain and each answer costs Chutes' price plus <b id="f-margin">20%</b>. The Credits page shows whether this server has credits mode switched on.</div></details>
+      <details open><summary>What is Bittensor, and how does KLIN use it?</summary><div class="a">Bittensor is a decentralized network where miners compete to serve AI and are paid in TAO. KLIN uses <b>subnet 64</b>, run by Chutes. Every model listed there runs inside confidential-compute hardware (Intel TDX), a sealed enclave the miner can't look into. KLIN reads the live model list and prices straight from Chutes and streams answers through its gateway.</div></details>
+      <details><summary>Two ways to pay on Bittensor</summary><div class="a"><b>Your own Chutes key.</b> Paste a key from chutes.ai and answers bill your Chutes account, which takes TAO too. The key stays in your browser and goes only to Chutes through this server in passing. <b>KLIN credits.</b> Send USDG on Robinhood Chain and each answer costs Chutes' price plus <b id="f-margin">20%</b>. The Credits page shows whether this server has credits mode switched on.</div></details>
       <details><summary>What is private mode?</summary><div class="a">The model runs on your own GPU, inside this browser tab, through WebGPU. SmolLM2 360M, Llama 3.2 1B and Qwen2.5 1.5B are available. The weights download once and cache. Your question and the answer never leave your device and it costs nothing. You need Chrome or Edge with WebGPU and a GPU with a few GB of memory.</div></details>
       <details><summary>What is the network?</summary><div class="a">People lend their GPU from a browser tab on the Mine page. Their tab loads a model, goes online, and answers requests routed to it by wallet address. You pick a lender, your prompt goes to their tab, tokens stream back. It costs <b id="f-net">$0.01 per 1,000 tokens</b> in credits and the lender keeps <b>70%</b>. The lender can see your words; the receipt tells you whose GPU answered.</div></details>
-      <details><summary>How does mining in a browser work?</summary><div class="a">Open the Mine page, load a model, click Go online. Your tab connects to KILN over a WebSocket and answers prompts sent to your wallet address, running the model through WebGPU. You keep 70% of what each answer costs, credited to your wallet on the Credits page and paid out in USDG. You need a GPU with 8 GB or more, a recent Chrome or Edge, and a wallet on Robinhood Chain.</div></details>
+      <details><summary>How does mining in a browser work?</summary><div class="a">Open the Mine page, load a model, click Go online. Your tab connects to KLIN over a WebSocket and answers prompts sent to your wallet address, running the model through WebGPU. You keep 70% of what each answer costs, credited to your wallet on the Credits page and paid out in USDG. You need a GPU with 8 GB or more, a recent Chrome or Edge, and a wallet on Robinhood Chain.</div></details>
       <details><summary>What are sealed messages?</summary><div class="a">Notes between two keys, encrypted on your device before they leave your screen: X25519 key agreement, HKDF, AES-GCM, and every note padded to the same size so the relay can't tell “ok” from a paragraph. The relay only ever carries the sealed box; it sees which keys are talking and when, never a word. Both sides see the same 60-digit safety number; read a few groups to each other once and you know nobody swapped a key.</div></details>
       <details><summary>Are credits real money?</summary><div class="a">Yes. A top-up is a real USDG transfer on Robinhood Chain to the treasury; the server verifies the receipt and credits your balance. Lender earnings are paid out in USDG from a cold wallet. There is no hot key on the server.</div></details>
-      <details><summary>What is $KILN?</summary><div class="a">The protocol's share token. The 20% margin on credit-paid Bittensor answers and the 30% protocol share of network answers accrue to it. Holders govern the margin, the lender split and which models are listed.</div></details>
+      <details><summary>What is $KLIN?</summary><div class="a">The protocol's share token. The 20% margin on credit-paid Bittensor answers and the 30% protocol share of network answers accrue to it. Holders govern the margin, the lender split and which models are listed.</div></details>
     </div>
-    <div class="ca" id="cabar" style="display:none"><span class="t">$KILN CA</span><code id="ca-mint"></code><button class="btn sm" id="ca-copy">Copy</button></div>
+    <div class="ca" id="cabar" style="display:none"><span class="t">$KLIN CA</span><code id="ca-mint"></code><button class="btn sm" id="ca-copy">Copy</button></div>
   </section>
 
   <!-- MINE -->
@@ -204,7 +204,7 @@ footer{margin-top:50px;border-top:1.5px solid var(--char);padding-top:16px;font-
         <div class="lab" style="margin:12px 0 6px">GPU utilisation</div><div class="gauge"><i id="l-gauge"></i></div>
         <div class="log" id="l-log" style="margin-top:12px"></div></div>
     </div>
-    <div class="sec"><div class="lab">outside the browser</div><h2>Or mine on Bittensor itself.</h2><p>For data-center GPUs. Run a Chutes miner on subnet 64 and serve open models to everyone who uses Chutes, KILN's Bittensor chat included. You earn subnet 64's alpha token, which swaps for TAO, paid by the Bittensor network rather than KILN. Validators score every miner. You need a server of data-center GPUs running as Intel TDX confidential VMs, a Bittensor wallet registered on subnet 64, and TAO for the registration fee.</p></div>
+    <div class="sec"><div class="lab">outside the browser</div><h2>Or mine on Bittensor itself.</h2><p>For data-center GPUs. Run a Chutes miner on subnet 64 and serve open models to everyone who uses Chutes, KLIN's Bittensor chat included. You earn subnet 64's alpha token, which swaps for TAO, paid by the Bittensor network rather than KLIN. Validators score every miner. You need a server of data-center GPUs running as Intel TDX confidential VMs, a Bittensor wallet registered on subnet 64, and TAO for the registration fee.</p></div>
   </section>
 
   <!-- NETWORK -->
@@ -253,7 +253,7 @@ footer{margin-top:50px;border-top:1.5px solid var(--char);padding-top:16px;font-
     </div>
   </section>
 
-  <footer><span>KILN · private compute · Robinhood Chain · 4663</span><span>kilnai.xyz · @KlinOnRH</span></footer>
+  <footer><span>KLIN · private compute · Robinhood Chain · 4663</span><span>klinai.xyz · @KlinOnRH</span></footer>
 </main>
 
 <div class="modal" id="wmodal"><div class="mcard"><h3>Connect</h3><p>No EVM wallet detected. Paste a Robinhood Chain address, or install MetaMask or Rabby to connect directly.</p><div class="field"><input id="waddr" placeholder="0x… Robinhood Chain address" spellcheck="false"></div><button class="btn fill wide" id="wsave">Connect</button></div></div>

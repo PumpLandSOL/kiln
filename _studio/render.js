@@ -13,13 +13,13 @@ const DESKTOP = require('path').join(__dirname, '..', 'brand'); require('fs').mk
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 
 const SIZES = {
-  'kiln-pfp': [2000, 2000],
-  'kiln-banner': [3000, 1000],
-  'kiln-keyart': [2400, 1350],
-  'kiln-rooms': [2400, 1350],
-  'kiln-lend': [2400, 1350],
-  'kiln-sealed': [2400, 1350],
-  'kiln-private': [2400, 1350],
+  'klin-pfp': [2000, 2000],
+  'klin-banner': [3000, 1000],
+  'klin-keyart': [2400, 1350],
+  'klin-rooms': [2400, 1350],
+  'klin-lend': [2400, 1350],
+  'klin-sealed': [2400, 1350],
+  'klin-private': [2400, 1350],
 };
 
 const only = process.argv[2];
@@ -31,7 +31,7 @@ for (const name of names) {
   const [w, h] = SIZES[name];
   const fileUrl = 'file:///' + htmlPath.replace(/\\/g, '/');
   const png = path.join(DESKTOP, name + '.png');
-  const udd = path.join(os.tmpdir(), 'kilnchrome_' + name + '_' + Date.now());
+  const udd = path.join(os.tmpdir(), 'klinchrome_' + name + '_' + Date.now());
   const r = spawnSync(CHROME, [
     '--headless=new', '--no-sandbox', '--hide-scrollbars',
     '--force-device-scale-factor=1', '--default-background-color=00000000',

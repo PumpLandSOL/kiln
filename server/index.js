@@ -1,4 +1,4 @@
-// KILN — private compute, fired in a sealed oven. Paid on Robinhood Chain.
+// KLIN — private compute, fired in a sealed oven. Paid on Robinhood Chain.
 //   Three ways to run a model: on Bittensor subnet 64 through the Chutes gateway (sealed hardware, the miner can't read
 //   your words), on a GPU someone lends from their browser tab (the network), or on your own GPU inside your browser (private,
 //   free, nothing leaves the tab). Lenders mine from a browser tab and keep LENDER_SHARE of what each answer costs.
@@ -10,10 +10,10 @@ const http = require('http'); const fs = require('fs'); const path = require('pa
 const PORT = process.env.PORT || 8226;
 const ROOT = path.join(__dirname, '..');
 const DATA_PATH = process.env.DATA_PATH || path.join(ROOT, 'data.json');
-const KILN_MINT = process.env.KILN_MINT || '';
+const KLIN_MINT = process.env.KLIN_MINT || '';
 const TREASURY = (process.env.TREASURY || '0x580Aa9df627A396F32aE649EC427a4Cb430a5eD2');   // USDG credit top-ups are verified against this address
 const ADMIN_KEY = process.env.ADMIN_KEY || '';
-const CHUTES_KEY = process.env.CHUTES_API_KEY || '';          // operator key used when people pay with KILN credits
+const CHUTES_KEY = process.env.CHUTES_API_KEY || '';          // operator key used when people pay with KLIN credits
 const MARGIN = +(process.env.MARGIN || 0.20);                  // on top of Chutes' price when paying with credits
 const NET_PER_1K = +(process.env.NET_PER_1K || 0.01);          // USD per 1,000 tokens on a lent GPU
 const LENDER_SHARE = +(process.env.LENDER_SHARE || 0.70);      // of NET price, to the lender
@@ -103,7 +103,7 @@ async function chatBittensor(req, res, d) {
   const base = pt * m.inUsd / 1e6 + ct * m.outUsd / 1e6; const cost = userKey ? base : base * (1 + MARGIN);
   if (w) { w.credits = Math.max(0, w.credits - cost); w.spent += cost; db.stats.marginUsd += base * MARGIN; hist(w, { type: 'answer', mode: 'bittensor', model: m.name, tokens: pt + ct, usd: cost }); }
   db.stats.answers++; db.stats.bittensor++; db.stats.tokens += pt + ct; db.stats.paidUsd += cost; feed({ type: 'answer', mode: 'bittensor', model: m.name, tokens: ct }); save();
-  send(res, 'receipt', { mode: 'bittensor', model: m.name, ranOn: 'Bittensor subnet 64 (Chutes), sealed hardware', promptTokens: pt, tokens: ct, tps: ct / Math.max(0.2, (Date.now() - (first || t0)) / 1000), ms, usd: cost, billed: userKey ? 'your Chutes account' : 'KILN credits', creditsLeft: w ? w.credits : null }); res.end();
+  send(res, 'receipt', { mode: 'bittensor', model: m.name, ranOn: 'Bittensor subnet 64 (Chutes), sealed hardware', promptTokens: pt, tokens: ct, tps: ct / Math.max(0.2, (Date.now() - (first || t0)) / 1000), ms, usd: cost, billed: userKey ? 'your Chutes account' : 'KLIN credits', creditsLeft: w ? w.credits : null }); res.end();
 }
 const estTok = (s) => Math.max(1, Math.round(String(s).length / 4));
 
@@ -129,7 +129,7 @@ function finishJob(id, r) {
   const w = W(j.wallet); w.credits = Math.max(0, w.credits - cost); w.spent += cost; hist(w, { type: 'answer', mode: 'network', model: j.model, tokens, usd: cost, lender: j.lender });
   const lw = W(j.lender); lw.earned += toLender; lw.served++; hist(lw, { type: 'served', tokens, usd: toLender, asker: j.wallet }); if (L) L.served++;
   db.stats.answers++; db.stats.network++; db.stats.tokens += tokens; db.stats.paidUsd += cost; db.stats.lenderUsd += toLender; feed({ type: 'answer', mode: 'network', model: j.model, tokens, lender: j.lender }); save();
-  send(j.res, 'receipt', { mode: 'network', model: j.model, ranOn: 'a lent ' + (L ? L.gpu : 'GPU') + ' · ' + j.lender.slice(0, 6) + '…' + j.lender.slice(-4), tokens, tps: tokens / Math.max(0.2, (Date.now() - (j.first || j.t0)) / 1000), ms: Date.now() - j.t0, usd: cost, lenderUsd: toLender, billed: 'KILN credits', creditsLeft: w.credits }); j.res.end();
+  send(j.res, 'receipt', { mode: 'network', model: j.model, ranOn: 'a lent ' + (L ? L.gpu : 'GPU') + ' · ' + j.lender.slice(0, 6) + '…' + j.lender.slice(-4), tokens, tps: tokens / Math.max(0.2, (Date.now() - (j.first || j.t0)) / 1000), ms: Date.now() - j.t0, usd: cost, lenderUsd: toLender, billed: 'KLIN credits', creditsLeft: w.credits }); j.res.end();
 }
 
 // ---------- sealed-message relay: carries opaque boxes between public keys, never plaintext ----------
@@ -180,7 +180,7 @@ function sse(res) { res.writeHead(200, { 'Content-Type': 'text/event-stream', 'C
 function send(res, ev, o) { try { res.write('event: ' + ev + '\ndata: ' + JSON.stringify(o) + '\n\n'); } catch (e) {} }
 function body(req) { return new Promise((r) => { let b = ''; req.on('data', (c) => { b += c; if (b.length > 2e5) req.destroy(); }); req.on('end', () => { try { r(JSON.parse(b || '{}')); } catch (e) { r({}); } }); }); }
 function account(addr) { const w = W(addr); return { wallet: addr.toLowerCase(), credits: w.credits, deposited: w.deposited, spent: w.spent, earned: w.earned, paidOut: w.paidOut, served: w.served, hist: w.hist.slice(0, 40), queue: db.queue.filter((q) => q.wallet === addr.toLowerCase()).slice(0, 10), online: lenders.has(addr.toLowerCase()) }; }
-function state() { return { gov: 'KILN', mint: KILN_MINT, treasury: TREASURY, minDeposit: MIN_DEPOSIT, margin: MARGIN, netPer1k: NET_PER_1K, lenderShare: LENDER_SHARE, creditsMode: !!CHUTES_KEY, chutes: { ok: CHUTES.ok, at: CHUTES.at, models: CHUTES.models }, lenders: lenderList(), chain: { ok: CHAIN.ok, block: CHAIN.block, avgMs: CHAIN.avgMs, tps: CHAIN.tps, baseFeeGwei: CHAIN.baseFeeGwei, treasuryUsdg: CHAIN.treasuryUsdg, blocks: CHAIN.blocks.map((b) => ({ n: b.n, txs: b.txs, gas: b.gas })), usdg: USDG.addr }, stats: db.stats, relayOnline: relay.size, feed: db.feed.slice(0, 30), t: Date.now() }; }
+function state() { return { gov: 'KLIN', mint: KLIN_MINT, treasury: TREASURY, minDeposit: MIN_DEPOSIT, margin: MARGIN, netPer1k: NET_PER_1K, lenderShare: LENDER_SHARE, creditsMode: !!CHUTES_KEY, chutes: { ok: CHUTES.ok, at: CHUTES.at, models: CHUTES.models }, lenders: lenderList(), chain: { ok: CHAIN.ok, block: CHAIN.block, avgMs: CHAIN.avgMs, tps: CHAIN.tps, baseFeeGwei: CHAIN.baseFeeGwei, treasuryUsdg: CHAIN.treasuryUsdg, blocks: CHAIN.blocks.map((b) => ({ n: b.n, txs: b.txs, gas: b.gas })), usdg: USDG.addr }, stats: db.stats, relayOnline: relay.size, feed: db.feed.slice(0, 30), t: Date.now() }; }
 
 async function handle(req, res) {
   const u = req.url.split('?')[0];
@@ -199,4 +199,4 @@ async function handle(req, res) {
   if (u === '/api/admin/paid') { if (!ADMIN_KEY || d.key !== ADMIN_KEY) return json(res, 200, { error: 'no' }); const q = db.queue.find((x) => x.id === d.id); if (!q) return json(res, 200, { error: 'no such item' }); q.status = 'paid'; q.tx = d.tx || null; q.paidTs = Date.now(); save(); return json(res, 200, { ok: true, q }); }
   json(res, 404, { error: 'unknown route' });
 }
-server.listen(PORT, () => console.log('KILN · private compute · Robinhood Chain · :' + PORT + (CHUTES_KEY ? ' · credits mode on' : ' · credits mode off (no CHUTES_API_KEY)')));
+server.listen(PORT, () => console.log('KLIN · private compute · Robinhood Chain · :' + PORT + (CHUTES_KEY ? ' · credits mode on' : ' · credits mode off (no CHUTES_API_KEY)')));
